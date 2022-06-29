@@ -1,5 +1,5 @@
 import re
-from multiprocessing import Pool
+from pool import Pool
 import json
 
 
