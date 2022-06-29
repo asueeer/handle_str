@@ -3,11 +3,10 @@ import json
 
 
 def cloud_function(json_input):
-    body = json.loads(json_input.get('body'))
-    s = body.get('inputStr')
-    p = body.get('pattern')
-    w = int(body.get('wordNum'))
-    m = int(body.get('threshold'))
+    s = json_input.get('inputStr')
+    p = json_input.get('pattern')
+    w = int(json_input.get('wordNum'))
+    m = int(json_input.get('threshold'))
 
     # Processing
     count, next_s = handle_str(s, p, w, m)
