@@ -19,7 +19,7 @@ helpmenu () {
 }
 
 showURL () {
-    terraform show | tail -n 3
+    terraform show | tail -n 1
 }
 
 createMappings () {
@@ -60,8 +60,7 @@ done
 mkdir -p tmp
 rm tmp/*.zip
 
-./build.sh ../functions/template-python
-./build.sh ../functions/template-node
+./build.sh ../functions/HandleStr
 
 terraform init
 

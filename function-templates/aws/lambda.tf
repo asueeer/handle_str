@@ -50,10 +50,10 @@ EOF
 ############################################
 
 locals {
-  function_names = ["template-node","template-python"]
-  function_paths = ["tmp/template-node.zip","tmp/template-python.zip"]
-  function_runtimes = ["nodejs14.x","python3.8"]
-  function_handlers = ["index.handler","lambda_function.lambda_handler"]
+  function_names = ["HandleStr"]
+  function_paths = ["tmp/HandleStr.zip"]
+  function_runtimes = ["python3.8"]
+  function_handlers = ["lambda_function.lambda_handler"]
   function_layers = [[],[]]
 }
 
