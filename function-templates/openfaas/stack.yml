@@ -1,0 +1,12 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080 # replace with OpenFaaS gateway address
+functions:
+  template-python:
+    lang: python3-flask
+    handler: ../functions/template-python    
+    image: <dockerID>/template-python
+
+
+  
