@@ -1,0 +1,6 @@
+{
+        "inputStr": "one one one two one",
+        "pattern": "one",
+        "wordNum": 2,
+        "threshold": 2
+}
