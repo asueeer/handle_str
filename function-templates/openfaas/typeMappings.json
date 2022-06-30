@@ -1,11 +1,11 @@
 [
 	{
-		"functionType": "YourType",
+		"functionType": "HandleStr",
 		"resources": [
 			{
 				"type": "Local",
 				"properties": {
-					"Image": "IMAGE_NAME"
+					"Image": "asueeer/handle_str"
 				}
 			}
 		]
