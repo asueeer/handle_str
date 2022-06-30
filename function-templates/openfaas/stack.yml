@@ -3,9 +3,9 @@ provider:
   name: openfaas
   gateway: http://127.0.0.1:8080 # replace with OpenFaaS gateway address
 functions:
-  HadnleStr:
+  HandleStr:
     lang: python3-flask
-    handler: ../functions/HadnleStr
+    handler: ../functions/HandleStr
     image: asueeer/handle_str
 
 
