@@ -1,0 +1,13 @@
+[
+	{
+		"functionType": "HandleStr",
+		"resources": [
+			{
+				"type": "Local",
+				"properties": {
+					"Image": "asueeer/handle_str"
+				}
+			}
+		]
+	}
+]
