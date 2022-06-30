@@ -1,0 +1,88 @@
+---
+name: "single Atomic"
+dataIns:
+  - name: "wf_coll"
+    type: "collection"
+    source: "inputSource"  
+workflowBody:
+  - function:
+      name: "addition_Demo3"
+      type: "Addition"
+      dataIns:
+        - name: "firstSummand"
+          type: "number"
+          source: 2
+        - name: "secondSummand"
+          type: "number"
+          source: 2
+        - name: "waitTimeIn"
+          type: "number"
+          source: 200
+      dataOuts: 
+        - name: "sum"
+          type: "number"
+  - parallelFor:
+      name: "parallelFor"
+      dataIns:
+        - name: "parallel_coll"
+          type: "number"
+          source: "single Atomic/wf_coll"
+          constraints: 
+            - name: "element-index"
+              value: 0:addition_Demo3/sum      
+      iterators: ["parallel_coll"]
+      loopBody:
+        - function:
+            name: "addition_Demo"
+            type: "Addition"
+            dataIns:
+            - name: "firstSummand"
+              type: "number"
+              source: "parallelFor/parallel_coll"
+            - name: "secondSummand"
+              type: "number"
+              source: 1
+            - name: "waitTimeIn"
+              type: "number"
+              source: 200                          
+            dataOuts: 
+            - name: "sum"
+              type: "number"
+        - function:
+            name: "addition_Demo2"
+            type: "Addition"
+            dataIns:
+            - name: "firstSummand"
+              type: "number"
+              source: "addition_Demo/sum"
+            - name: "secondSummand"
+              type: "number"
+              source: "addition_Demo3/sum"
+            - name: "waitTimeIn"
+              type: "number"
+              source: 200                          
+            dataOuts: 
+            - name: "sum"
+              type: "number"              
+      dataOuts:
+        - name: "result_collection"
+          type: "collection"
+          source: "addition_Demo2/sum"
+  - function:
+      name: "collectionSum_Demo"
+      type: "SumCollection"
+      dataIns:
+        - name: "collectionToSum"
+          type: "collection"
+          source: "parallelFor/result_collection"  
+        - name: "waitTimeIn"
+          type: "number"
+          source: 200         
+      dataOuts: 
+        - name: "collectionSum"
+          type: "number"          
+dataOuts:
+  - name: "overallOutput"
+    type: "number"
+    source: "collectionSum_Demo/collectionSum"
+

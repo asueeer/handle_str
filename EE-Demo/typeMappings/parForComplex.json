@@ -1,0 +1,16 @@
+[
+  {"functionType" : "Addition",
+    "resources": [      
+      {"type": "Demo",
+        "properties": {}
+      }
+      ]
+  },
+    {"functionType" : "SumCollection",
+    "resources": [      
+      {"type": "Demo",
+        "properties": {}
+      }
+      ]
+  }
+]

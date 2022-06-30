@@ -1,0 +1,102 @@
+---
+name: "bre"
+dataIns:
+  - name: "list"
+    type: "collection"
+    source: "list"
+workflowBody:
+  - function:
+      name: "collectionSum_Demo"
+      type: "SumCollection"
+      dataIns:
+      - name: "collectionToSum"
+        type: "collection"
+        source: "bre/list"
+      - name: "waitTimeIn"
+        type: "number"
+        source: 2000
+      dataOuts:
+      - name: "collectionSum"
+        type: "number"
+  - function:
+      name: "collectionSum_Demo2"
+      type: "SumCollection"
+      dataIns:
+      - name: "collectionToSum"
+        type: "collection"
+        source: "bre/list"
+        constraints:
+        - name: "element-index"
+          value: 1:3:2
+        - name: "replicate"
+          value: 3
+      - name: "waitTimeIn"
+        type: "number"
+        source: 2000
+      dataOuts:
+      - name: "collectionSum"
+        type: "number"
+  - function:
+      name: "collectionSum_Demo3"
+      type: "SumCollection"
+      dataIns:
+      - name: "collectionToSum"
+        type: "collection"
+        source: "bre/list"
+        constraints:
+        - name: "replicate"
+          value: 2
+        - name: "element-index"
+          value: ::2
+      - name: "waitTimeIn"
+        type: "number"
+        source: 1000
+      dataOuts:
+      - name: "collectionSum"
+        type: "number"
+  - function:
+      name: "collectionSum_Demo4"
+      type: "SumCollection"
+      dataIns:
+      - name: "collectionToSum"
+        type: "collection"
+        source: "bre/list"
+        constraints:
+        - name: "block"
+          value: 2,1
+        - name: "element-index"
+          value: 0
+        - name: "replicate"
+          value: 2
+      - name: "waitTimeIn"
+        type: "number"
+        source: 1000
+      dataOuts:
+      - name: "collectionSum"
+        type: "number"
+  - function:
+      name: "addition_Demo"
+      type: "Addition"
+      dataIns:
+      - name: "firstSummand"
+        type: "number"
+        source: "collectionSum_Demo4/collectionSum"
+      - name: "secondSummand"
+        type: "number"
+        source: "collectionSum_Demo2/collectionSum"
+      - name: "waitTimeIn"
+        type: "number"
+        source: 1000
+      dataOuts:
+      - name: "sum"
+        type: "number"
+dataOuts:
+  - name: "result"
+    type: "number"
+    source: "collectionSum_Demo/collectionSum"
+  - name: "result3"
+    type: "number"
+    source: "collectionSum_Demo3/collectionSum"
+  - name: "result5"
+    type: "number"
+    source: "addition_Demo/sum"

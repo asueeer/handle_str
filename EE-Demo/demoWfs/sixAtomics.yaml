@@ -1,0 +1,127 @@
+---
+name: "sixAtomics"
+dataIns:
+  - name: "input1"
+    type: "number"
+    source: "input1"
+  - name: "input2"
+    type: "number"
+    source: "input2"
+  - name: "input3"
+    type: "number"
+    source: "input3"    
+  - name: "input4"
+    type: "number"
+    source: "input4"    
+  - name: "input5"
+    type: "number"
+    source: "input5"    
+  - name: "input6"
+    type: "number"
+    source: "input6"
+  - name: "wait1"
+    type: "number"
+    source: "wait1"
+  - name: "wait2"
+    type: "number"
+    source: "wait2"    
+workflowBody:
+  - function:
+      name: "addition_Demo1"
+      type: "Addition"
+      dataIns:
+        - name: "firstSummand"
+          type: "number"
+          source: "sixAtomics/input1"
+        - name: "secondSummand"
+          type: "number"
+          source: "sixAtomics/input2"
+        - name: "waitTimeIn"
+          type: "number"
+          source: "sixAtomics/wait1"
+      dataOuts: 
+        - name: "sum"
+          type: "number"
+      properties:
+        - name: "resource"
+          value: "my_res_link"
+  - function:
+      name: "addition_Demo2"
+      type: "Addition"
+      dataIns:
+        - name: "firstSummand"
+          type: "number"
+          source: "sixAtomics/input3"
+        - name: "secondSummand"
+          type: "number"
+          source: "sixAtomics/input4"
+        - name: "waitTimeIn"
+          type: "number"
+          source: "sixAtomics/wait1"
+      dataOuts: 
+        - name: "sum"
+          type: "number"
+      properties:
+        - name: "resource"
+          value: "my_res_link"
+  - function:
+      name: "addition_Demo3"
+      type: "Addition"
+      dataIns:
+        - name: "firstSummand"
+          type: "number"
+          source: "sixAtomics/input5"
+        - name: "secondSummand"
+          type: "number"
+          source: "sixAtomics/input6"
+        - name: "waitTimeIn"
+          type: "number"
+          source: "sixAtomics/wait2"
+      dataOuts: 
+        - name: "sum"
+          type: "number"
+      properties:
+        - name: "resource"
+          value: "my_res_link"
+  - function:
+      name: "addition_Demo4"
+      type: "Addition"
+      dataIns:
+        - name: "firstSummand"
+          type: "number"
+          source: "addition_Demo1/sum"
+        - name: "secondSummand"
+          type: "number"
+          source: "addition_Demo2/sum"
+        - name: "waitTimeIn"
+          type: "number"
+          source: "sixAtomics/wait2"
+      dataOuts: 
+        - name: "sum"
+          type: "number"
+      properties:
+        - name: "resource"
+          value: "my_res_link"
+  - function:
+      name: "addition_Demo5"
+      type: "Addition"
+      dataIns:
+        - name: "firstSummand"
+          type: "number"
+          source: "addition_Demo3/sum"
+        - name: "secondSummand"
+          type: "number"
+          source: "addition_Demo4/sum"
+        - name: "waitTimeIn"
+          type: "number"
+          source: "sixAtomics/wait1"
+      dataOuts: 
+        - name: "sum"
+          type: "number"
+      properties:
+        - name: "resource"
+          value: "my_res_link"
+dataOuts:
+  - name: "result"
+    type: "number"
+    source: "addition_Demo5/sum"

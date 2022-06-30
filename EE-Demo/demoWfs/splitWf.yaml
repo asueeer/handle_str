@@ -1,0 +1,39 @@
+---
+name: "SimpleSplit"
+dataIns:
+- name: "arr1"
+  type: "collection"
+  source: "arr1"
+workflowBody:
+- parallelFor:
+    name: "f"
+    dataIns:
+    - name: "in"
+      type: "collection"
+      source: "SimpleSplit/arr1"
+      constraints:
+      - name: "split"
+        value: "2"
+    iterators: ["in"]
+    loopBody:
+    - function:
+        name: "a"
+        type: "SumCollection"
+        dataIns:
+        - name: "collectionToSum"
+          type: "collection"
+          source: "f/in"
+        - name: "waitTimeIn"
+          type: "number"
+          source: 1000
+        dataOuts:
+        - name: "collectionSum"
+          type: "number"
+    dataOuts:
+    - name: "result"
+      type: "collection"
+      source: "a/collectionSum"
+dataOuts:
+- name: "result"
+  type: "collection"
+  source: "f/result"

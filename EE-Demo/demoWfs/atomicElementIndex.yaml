@@ -1,0 +1,37 @@
+---
+name: "single Atomic"
+dataIns:
+  - name: "input_collection"
+    type: "collection"
+    source: "int_array"
+  - name: "input_stride"
+    type: "number"
+    source: "stride"
+  - name: "input_index"
+    type: "number"
+    source: "index"
+  - name: "waitTime"
+    type: "number"
+    source: "wait"      
+workflowBody:
+  - function:
+      name: "collectionSum_Demo"
+      type: "SumCollection"
+      dataIns:
+        - name: "collectionToSum"
+          type: "collection"
+          source: "single Atomic/input_collection"
+          constraints:
+            - name: "element-index"
+              value: single Atomic/input_index, 2:6:single Atomic/input_stride
+        - name: "waitTimeIn"
+          type: "number"
+          source: "single Atomic/waitTime"          
+      dataOuts: 
+        - name: "collectionSum"
+          type: "number" 
+dataOuts:
+  - name: "output_name"
+    type: "number"
+    source: "collectionSum_Demo/collectionSum"
+

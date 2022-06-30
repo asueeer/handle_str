@@ -1,0 +1,69 @@
+---
+name: "whileWhile"
+dataIns:
+  - name: "inputOne"
+    type: "number"
+    source: "inputSource"
+  - name: "outerIterator"
+    type: "number"
+    source: "outerIterator"
+  - name: "innerIterator"
+    type: "number"
+    source: "innerIterator"        
+workflowBody:
+  - while:
+      name: "while"
+      dataIns:
+        - name: "outerIterator"
+          type: "number"
+          source: "whileWhile/inputOne"            
+      loopBody:
+        - while:
+            name: "innerWhile"
+            dataIns:
+              - name: "innerIterator"
+                type: "number"
+                source: "while/outerIterator"
+            loopBody:
+              - function:
+                  name: "add"
+                  type: "Addition"
+                  dataIns:
+                  - name: "firstSummand"
+                    type: "number"
+                    source: "innerWhile/innerIterator"
+                  - name: "secondSummand"
+                    type: "number"
+                    source: 1      
+                  - name: "waitTimeIn"
+                    type: "number"
+                    source: 100      
+                  dataOuts: 
+                  - name: "sum"
+                    type: "number"
+            condition:
+              - data1: "innerWhile/counter"
+                data2: "whileWhile/innerIterator"
+                type: "number"
+                operator: "<"
+                negation: false
+                combinedWith: "and"
+            dataOuts:
+              - name: "innerIterator"
+                type: "number"
+                source: "add/sum"
+      condition:
+        - data1: "while/counter"
+          data2: "whileWhile/outerIterator"
+          type: "number"
+          operator: "<"
+          negation: "false"
+          combinedWith: "and"                 
+      dataOuts:
+        - name: "outerIterator"
+          type: "number"
+          source: "innerWhile/innerIterator" 
+dataOuts:
+  - name: "overallOutput"
+    type: "number"
+    source: "while/outerIterator"

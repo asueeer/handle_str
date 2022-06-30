@@ -1,0 +1,33 @@
+
+---
+name: "single Atomic"
+dataIns:
+  - name: "input_collection"
+    type: "collection"
+    source: "int_array"
+  - name: "input_overlap"
+    type: "number"
+    source: "overlap"   
+workflowBody:
+  - function:
+      name: "collectionSum_Demo"
+      type: "SumCollection"
+      dataIns:
+        - name: "collectionToSum"
+          type: "collection"
+          source: "single Atomic/input_collection"
+          constraints:
+            - name: "block"
+              value: 2,single Atomic/input_overlap
+            - name: "element-index"
+              value: 1  
+        - name: "waitTimeIn"
+          type: "number"
+          source: 2000          
+      dataOuts: 
+        - name: "collectionSum"
+          type: "number" 
+dataOuts:
+  - name: "output_name"
+    type: "number"
+    source: "collectionSum_Demo/collectionSum"

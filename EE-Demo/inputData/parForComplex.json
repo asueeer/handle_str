@@ -1,0 +1,5 @@
+{
+	"inputSource" : [1, 2, 3, 4],
+	"blockSize": 2,
+	"wait": 2
+}

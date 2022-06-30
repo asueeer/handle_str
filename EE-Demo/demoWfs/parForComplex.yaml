@@ -1,0 +1,147 @@
+
+---
+name: "parForComplex"
+dataIns:
+- name: "inputCollection"
+  type: "collection"
+  source: "inputSource"
+- name: "blockSize"
+  type: "number"
+  source: "blockSize"
+- name: "waitTime"
+  type: "number"
+  source: "wait"
+workflowBody:
+- parallelFor:
+    name: "parallelFor"
+    dataIns:
+    - name: "parallel_coll"
+      type: "collection"
+      source: "parForComplex/inputCollection"
+      constraints:
+      - name: "replicate"
+        value: 3
+      - name: "block"
+        value: parForComplex/blockSize,1
+    iterators: ["parallel_coll"]
+    loopBody:
+    - function:
+        name: "addition_Demo"
+        type: "Addition"
+        dataIns:
+        - name: "firstSummand"
+          type: "collection"
+          source: "parallelFor/parallel_coll"
+          constraints:
+          - name: "element-index"
+            value: 0
+        - name: "secondSummand"
+          type: "number"
+          source: 1
+        - name: "waitTimeIn"
+          type: "number"
+          source: "parForComplex/waitTime"
+        dataOuts:
+        - name: "sum"
+          type: "number"
+    - parallelFor:
+        name: "parallelFor2"
+        dataIns:
+        - name: "parallel_coll2"
+          type: "collection"
+          source: "parForComplex/inputCollection"
+          constraints:
+          - name: "replicate"
+            value: 2
+          - name: "element-index"
+            value: ::2
+          - name: "block"
+            value: parForComplex/blockSize,1
+        iterators: ["parallel_coll2"]
+        loopBody:
+        - function:
+            name: "addition_Demo2"
+            type: "Addition"
+            dataIns:
+            - name: "firstSummand"
+              type: "collection"
+              source: "parallelFor2/parallel_coll2"
+              constraints:
+              - name: "element-index"
+                value: 0
+            - name: "secondSummand"
+              type: "number"
+              source: 1
+            - name: "waitTimeIn"
+              type: "number"
+              source: "parForComplex/waitTime"
+            dataOuts:
+            - name: "sum"
+              type: "number"
+        - parallelFor:
+            name: "parallelFor3"
+            dataIns:
+            - name: "parallel_coll3"
+              type: "collection"
+              source: "parForComplex/inputCollection"
+              constraints:
+              - name: "replicate"
+                value: 2
+              - name: "replicate"
+                value: 2
+              - name: "element-index"
+                value: ::4
+              - name: "block"
+                value: parForComplex/blockSize,1
+            iterators: ["parallel_coll3"]
+            loopBody:
+            - function:
+                name: "addition_Demo3"
+                type: "Addition"
+                dataIns:
+                - name: "firstSummand"
+                  type: "collection"
+                  source: "parallelFor3/parallel_coll3"
+                  constraints:
+                  - name: "element-index"
+                    value: 0
+                - name: "secondSummand"
+                  type: "number"
+                  source: 1
+                - name: "waitTimeIn"
+                  type: "number"
+                  source: "parForComplex/waitTime"
+                dataOuts:
+                - name: "sum"
+                  type: "number"
+            dataOuts:
+            - name: "result_collection3"
+              type: "collection"
+              source: "addition_Demo3/sum"
+        dataOuts:
+        - name: "result_collection_parallelFor2_2"
+          type: "collection"
+          source: "addition_Demo2/sum"
+        - name: "result_collection_parallelFor2_3"
+          type: "collection"
+          source: "parallelFor3/result_collection3"
+    dataOuts:
+    - name: "result_collection_parallelFor"
+      type: "collection"
+      source: "addition_Demo/sum"
+    - name: "result_collection_parallelFor_2"
+      type: "collection"
+      source: "parallelFor2/result_collection_parallelFor2_2"
+    - name: "result_collection_parallelFor_3"
+      type: "collection"
+      source: "parallelFor2/result_collection_parallelFor2_3"
+dataOuts:
+- name: "output"
+  type: "collection"
+  source: "parallelFor/result_collection_parallelFor"
+- name: "output2"
+  type: "collection"
+  source: "parallelFor/result_collection_parallelFor_2"
+- name: "output3"
+  type: "collection"
+  source: "parallelFor/result_collection_parallelFor_3"

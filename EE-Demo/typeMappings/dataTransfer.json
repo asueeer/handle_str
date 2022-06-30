@@ -1,0 +1,13 @@
+[
+	{
+		"functionType": "iterateCollection",
+		"resources": [
+			{
+				"type": "Local",
+				"properties": {
+					"Image": "fedor89/iterateinput"
+				}
+			}
+		]
+	}
+]

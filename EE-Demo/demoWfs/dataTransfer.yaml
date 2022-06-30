@@ -1,0 +1,36 @@
+---
+name: "data transfer"
+dataIns:
+  - name: "data payload"
+    type: "collection"
+    source: "input"
+workflowBody:
+  - function:
+      name: "stepOne"
+      type: "iterateCollection"
+      dataIns:
+        - name: "input"
+          type: "collection"
+          source: "data transfer/data payload"        
+      dataOuts: 
+        - name: "output"
+          type: "collection"
+  - function:
+      name: "stepTwo"
+      type: "iterateCollection"
+      dataIns:
+        - name: "input"
+          type: "collection"
+          source: "stepOne/output"        
+      dataOuts: 
+        - name: "output"
+          type: "collection"
+        - name: "count"
+          type: "number"          
+dataOuts:
+  - name: "result"
+    type: "collection"
+    source: "stepTwo/output"
+  - name: "resultCount"
+    type: "number"
+    source: "stepTwo/count"

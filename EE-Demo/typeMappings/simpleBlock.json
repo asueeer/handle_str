@@ -1,0 +1,9 @@
+[
+  {"functionType" : "SumCollection",
+    "resources": [      
+      {"type": "Demo",
+        "properties": {}
+      }
+      ]
+  }
+]
