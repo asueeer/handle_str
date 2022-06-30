@@ -1,5 +1,4 @@
 import re
-from pool import Pool
 import json
 
 
